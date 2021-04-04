@@ -67,14 +67,14 @@ function App() {
           {moveDown(item.id)}
         }className="button"><i class="fa fa-arrow-down"></i></button>
         <button onClick={ () =>
-          {editor(item.id)}
-        }className="button"><i class="fa fa-pencil"></i></button>
-        <button onClick={ () =>
           {
             let editVal=window.prompt("Edit Task","Go to Sleep");
             editor(item.id,editVal)
           }
-        } className="button"><i class="fa fa-trash"></i></button>
+        } className="button"><i class="fa fa-pencil"></i></button>
+        <button onClick={ () =>
+          {deleter(item.id)}
+        }className="button"><i class="fa fa-trash"></i></button>
       </div>
       <br></br>
     </div>
