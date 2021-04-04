@@ -1,8 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
 import {useState} from 'react';
-import Item from './Item';
-
 
 function App() {
 
@@ -15,10 +13,14 @@ function App() {
   function moveUp(loc){
     loc--;
     let reList = [...taskList];
-    if (loc!=0){
+    if (loc!==0){
         let temp = reList[loc];
         reList[loc]=reList[loc-1];
-        reList[loc-1]=[...reList];
+        reList[loc-1]=temp;
+        
+        let tempid=reList[loc].id;
+        reList[loc].id=reList[loc-1].id;
+        reList[loc-1].id=tempid;
     }
     setTaskList((prevState) => prevState = reList)
   }
@@ -26,21 +28,31 @@ function App() {
   function moveDown(loc){
     loc--;
     let reList = [...taskList];
-    if (loc!=taskList.length){
+    if (loc!==taskList.length-1){
         let temp = reList[loc];
         reList[loc]=reList[loc+1];
-        reList[loc+1]=[...reList];
+        reList[loc+1]=temp;
+
+        let tempid=reList[loc].id;
+        reList[loc].id=reList[loc+1].id;
+        reList[loc+1].id=tempid;
     }
     setTaskList((prevState) => prevState = reList)
   }
 
-  function isSearch(searchquery){
-    return taskList.task === searchquery
-  }
   function deleter(loc){
     loc--;
     let reList = [...taskList];
     reList.splice(loc,1)
+    for (let i=1; i<reList.length+1;i++)
+      reList[i-1].id=i;
+    setTaskList((prevState) => prevState = reList)
+  }
+
+  function editor(loc,editVal){
+    loc--;
+    let reList = [...taskList];
+    reList[loc].task=editVal;
     setTaskList((prevState) => prevState = reList)
   }
 
@@ -48,11 +60,20 @@ function App() {
     <div>
       <div className="Rect">
         <p>{item.task}</p>
-        <button className="button"><i class="fa fa-arrow-up"></i></button>
-        <button className="button"><i class="fa fa-arrow-down"></i></button>
-        <button className="button"><i class="fa fa-pencil"></i></button>
         <button onClick={ () =>
-          {deleter()}
+          {moveUp(item.id)}
+        }className="button"><i class="fa fa-arrow-up"></i></button>
+        <button onClick={ () =>
+          {moveDown(item.id)}
+        }className="button"><i class="fa fa-arrow-down"></i></button>
+        <button onClick={ () =>
+          {editor(item.id)}
+        }className="button"><i class="fa fa-pencil"></i></button>
+        <button onClick={ () =>
+          {
+            window.prompt("Edit Task","Go to Sleep");
+            editor(item.id,editVal)
+          }
         } className="button"><i class="fa fa-trash"></i></button>
       </div>
       <br></br>
@@ -94,7 +115,6 @@ function App() {
                 setTaskList([
                   ...taskList,
                   {
-                    // Use the current size as ID (needed to iterate the list later)
                     id: taskList.length + 1,
                     task: task
                   }
@@ -122,8 +142,9 @@ function App() {
             value="Go"
             onClick={e => {
               setSearchResult("loading...")
+              setSearchResultPrint(""); 
               for (let i=0; i<taskList.length; i++){
-                if (taskList[i].task==search){
+                if (taskList[i].task===search){
                   setSearchResult("Result Found")
                   setSearchResultPrint(taskList[i].task)
                   break;

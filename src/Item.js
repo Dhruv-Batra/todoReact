@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react';
+import {useState} from 'react';
 
 const Item = ({listPassed}) => {
 
@@ -6,10 +6,10 @@ const Item = ({listPassed}) => {
 
     function moveUp(loc){
         let reList = [...listPassed];
-        if (loc!=0){
+        if (loc!==0){
             let temp = reList[loc];
             reList[loc]=reList[loc-1];
-            reList[loc-1]=[...reList];
+            reList[loc-1]=temp;
         }
         setTaskList((prevState) => prevState = reList)
       }
@@ -29,7 +29,7 @@ const Item = ({listPassed}) => {
 
 
     return(
-        <div key={listPassed}>
+        <div>
             {Printer}
         </div>
     );

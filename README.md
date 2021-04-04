@@ -1,7 +1,10 @@
 #References
 https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array
 https://blog.logrocket.com/a-guide-to-usestate-in-react-ecb9952e406c/
-
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/find
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/splice
+https://www.w3schools.com/css/css_grid.asp
+https://cssgradient.io/
 
 # Getting Started with Create React App
 
