@@ -1,16 +1,20 @@
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 
 const Item = ({listPassed}) => {
 
-    function moveUp(loc){
-        if (loc!=0){
-            let temp = listPassed[loc];
-            listPassed[loc]=listPassed[loc-1];
-            listPassed[loc-1]=temp;
-        }
-    }
+    const[tasks,setTaskList] = useState(listPassed);
 
-    const Printer = listPassed.map( item => (
+    function moveUp(loc){
+        let reList = [...listPassed];
+        if (loc!=0){
+            let temp = reList[loc];
+            reList[loc]=reList[loc-1];
+            reList[loc-1]=[...reList];
+        }
+        setTaskList((prevState) => prevState = reList)
+      }
+
+      const Printer = tasks.map( item => (
         <div>
           <div className="Rect">
             <p>{item.task}</p>

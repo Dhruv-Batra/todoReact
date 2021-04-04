@@ -8,8 +8,41 @@ function App() {
 
   const[task, setTask] = useState("");
   const[taskList,setTaskList] = useState([]);
+  const[search, setSearch] = useState("");
+  const[searchResult, setSearchResult] = useState("Looking for a task? Try using the Search Bar Above!");
+  const[searchResultPrint, setSearchResultPrint] = useState("");
 
+  function moveUp(loc){
+    loc--;
+    let reList = [...taskList];
+    if (loc!=0){
+        let temp = reList[loc];
+        reList[loc]=reList[loc-1];
+        reList[loc-1]=[...reList];
+    }
+    setTaskList((prevState) => prevState = reList)
+  }
 
+  function moveDown(loc){
+    loc--;
+    let reList = [...taskList];
+    if (loc!=taskList.length){
+        let temp = reList[loc];
+        reList[loc]=reList[loc+1];
+        reList[loc+1]=[...reList];
+    }
+    setTaskList((prevState) => prevState = reList)
+  }
+
+  function isSearch(searchquery){
+    return taskList.task === searchquery
+  }
+  function deleter(loc){
+    loc--;
+    let reList = [...taskList];
+    reList.splice(loc,1)
+    setTaskList((prevState) => prevState = reList)
+  }
 
   const Printer = taskList.map( item => (
     <div>
@@ -18,7 +51,9 @@ function App() {
         <button className="button"><i class="fa fa-arrow-up"></i></button>
         <button className="button"><i class="fa fa-arrow-down"></i></button>
         <button className="button"><i class="fa fa-pencil"></i></button>
-        <button className="button"><i class="fa fa-trash"></i></button>
+        <button onClick={ () =>
+          {deleter()}
+        } className="button"><i class="fa fa-trash"></i></button>
       </div>
       <br></br>
     </div>
@@ -40,7 +75,8 @@ function App() {
       <div class="App-body">
         <br></br>
         {/*APP CODE HERE*/}
-        <div>
+        
+        {/*Printing*/}
         <div>
           <input
             type="text"
@@ -69,12 +105,42 @@ function App() {
           />
           <br></br>
           <br></br>
-          <Item listPassed= {taskList} />{/*{Printer}*/}
+          {Printer}
         </div>
+        {/*Search*/}
+        <div>
+          <input
+            type="text"
+            value={search}
+            placeholder="Search for a Task"
+            onChange={event => {
+              setSearch(event.target.value);
+            }}
+          />
+          <input
+            type="button"
+            value="Go"
+            onClick={e => {
+              setSearchResult("loading...")
+              for (let i=0; i<taskList.length; i++){
+                if (taskList[i].task==search){
+                  setSearchResult("Result Found")
+                  setSearchResultPrint(taskList[i].task)
+                  break;
+                }else{
+                  setSearchResult("No Results Found")
+                }
+              }
+              setTask(""); // Clear the text box
+            }}
+          />
+          <br></br>
+          <br></br>
         </div>
-
-
-
+        <div className="RectDis">
+          <p>{searchResult}</p>
+          <p>{searchResultPrint}</p>
+        </div>
       </div>  
     </div>
   );

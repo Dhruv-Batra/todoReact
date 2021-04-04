@@ -1,3 +1,8 @@
+#References
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array
+https://blog.logrocket.com/a-guide-to-usestate-in-react-ecb9952e406c/
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
