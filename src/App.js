@@ -71,7 +71,7 @@ function App() {
         }className="button"><i class="fa fa-pencil"></i></button>
         <button onClick={ () =>
           {
-            window.prompt("Edit Task","Go to Sleep");
+            let editVal=window.prompt("Edit Task","Go to Sleep");
             editor(item.id,editVal)
           }
         } className="button"><i class="fa fa-trash"></i></button>
