@@ -1,17 +1,32 @@
 import {useState} from 'react';
 
-const Item = (taskPassed) => {
+const Item = ({listPassed}) => {
 
-    const [task, setTask] = useState(taskPassed);
-
-    const editTask = () => {
-        setTask((prevState) => prevState = "changed");
+    function moveUp(loc){
+        if (loc!=0){
+            let temp = listPassed[loc];
+            listPassed[loc]=listPassed[loc-1];
+            listPassed[loc-1]=temp;
+        }
     }
 
-    return(
+    const Printer = listPassed.map( item => (
         <div>
-           <p>Result: {task}</p>
-           <button onClick={editTask}>+</button> 
+          <div className="Rect">
+            <p>{item.task}</p>
+            <button onClick={() => moveUp(item.id)} className="button"><i class="fa fa-arrow-up"></i></button>
+            <button className="button"><i class="fa fa-arrow-down"></i></button>
+            <button className="button"><i class="fa fa-pencil"></i></button>
+            <button className="button"><i class="fa fa-trash"></i></button>
+          </div>
+          <br></br>
+        </div>
+      ));
+
+
+    return(
+        <div key={listPassed}>
+            {Printer}
         </div>
     );
 }
