@@ -1,3 +1,7 @@
+This is my first React app. Functionality includes the ability to add, remove, reorder, search, and edit the list.
+
+![image](https://user-images.githubusercontent.com/47730411/120230303-0a71c380-c21d-11eb-951b-0bdebcb11e5e.png)
+
 # References  
 https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array  
 https://blog.logrocket.com/a-guide-to-usestate-in-react-ecb9952e406c/  
